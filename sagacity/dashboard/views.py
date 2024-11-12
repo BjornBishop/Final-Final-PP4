@@ -8,14 +8,20 @@ from .models import Assignment
 
 # Create your views here
 
+# home request
+
 def home(request):
-    active_assignments = Assignment.objects.filter(is_active=True)[:15]  # To make it show max 15 assignments (5 rows x 3 columns)
-    inactive_assignments = Assignment.objects.filter(is_active=False)[:15]
-    return render(request, 'dashboard/home.html', {
+    # Add a print statement for debugging
+    print("Home view is being called")
+    active_assignments = Assignment.objects.filter(is_active=True)
+    inactive_assignments = Assignment.objects.filter(is_active=False)
+    context = {
         'active_assignments': active_assignments,
         'inactive_assignments': inactive_assignments,
         'user': request.user
-    })
+    }
+    print("Context:", context)  # Debug print
+    return render(request, 'dashboard/home.html', context)
 
 # sign up
 

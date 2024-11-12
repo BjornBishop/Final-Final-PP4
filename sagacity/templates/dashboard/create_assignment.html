@@ -1,0 +1,62 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Create Assignment{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Create New Assignment</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_title" class="form-label">Assignment Title</label>
+                        <input type="text" name="title" class="form-control" id="id_title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_industry" class="form-label">Industry</label>
+                        <select name="industry" class="form-select" id="id_industry" required>
+                            <option value="">Select an industry</option>
+                            <option value="FS">Financial Services</option>
+                            <option value="COM">Commercial</option>
+                            <option value="IND">Industrial</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_duration" class="form-label">Duration (days)</label>
+                        <input type="number" name="duration" class="form-control" id="id_duration" required min="1">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <label for="id_rate" class="form-label">Rate</label>
+                            <input type="number" name="rate" class="form-control" id="id_rate" required min="0" step="0.01">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="id_currency" class="form-label">Currency</label>
+                            <select name="currency" class="form-select" id="id_currency" required>
+                                <option value="EUR">EUR</option>
+                                <option value="SEK">SEK</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_requirements" class="form-label">Requirements (separate with /)</label>
+                        <input type="text" name="requirements" class="form-control" id="id_requirements" 
+                               placeholder="Requirement 1 / Requirement 2 / Requirement 3" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Description</label>
+                        <textarea name="description" class="form-control" id="id_description" rows="5" required></textarea>
+                        <div class="form-text">Do not include contact information in the description.</div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Create Assignment</button>
+                        <a href="{% url 'my_assignments' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
