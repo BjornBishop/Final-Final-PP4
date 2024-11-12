@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DEBUG', 'False') == 'True' # FOR DEVELOPMENT ONLY 
 
 ALLOWED_HOSTS = ['*']  # For development only
 
@@ -111,3 +111,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Login settings
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
+
+# Email Configuration
+if DEBUG:
+    # Use console backend for development
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    # SMTP backend for production
+    EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+    EMAIL_HOST = os.getenv('EMAIL_HOST')
+    EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+    EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
