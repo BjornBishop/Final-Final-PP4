@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import Assignment
 
-# Register your models here
+# admin things go here
 
-admin.site.register(Assignment)
+@admin.register(Assignment)
+class AssignmentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'industry', 'duration', 'rate', 'currency', 'is_active', 'created_by', 'created_at')
+    list_filter = ('industry', 'is_active', 'created_at')
+    search_fields = ('title', 'description')
