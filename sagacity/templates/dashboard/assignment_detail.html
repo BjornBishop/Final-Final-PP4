@@ -1,0 +1,68 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}{{ assignment.title }} Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">{{ assignment.title }}</h2>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <strong>Industry:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ assignment.get_industry_display }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <strong>Duration:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ assignment.duration }} days
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <strong>Rate:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ assignment.rate }} {{ assignment.currency }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <strong>Requirements:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {% for requirement in assignment.requirements.split|join:"/" %}
+                                <span class="badge bg-secondary me-2">{{ requirement }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <strong>Description:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ assignment.description|linebreaks }}
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

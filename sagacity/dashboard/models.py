@@ -26,3 +26,10 @@ class Assignment(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        """Return a string representation of the assignment"""
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at']  # Newest assignments first
