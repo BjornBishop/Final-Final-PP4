@@ -1,0 +1,59 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+        <div class="d-flex justify-content-end mb-4">
+            <a href="{% url 'create_assignment' %}" class="btn btn-primary">Create Assignment</a>
+        </div>
+    {% endif %}
+
+    <h2 class="section-title">Active Assignments</h2>
+    <div class="assignments-grid">
+        {% for assignment in active_assignments %}
+            <div class="card assignment-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ assignment.title }}</h5>
+                    <p class="card-text">
+                        <strong>Industry:</strong> {{ assignment.get_industry_display }}<br>
+                        <strong>Duration:</strong> {{ assignment.duration }} days<br>
+                        <strong>Rate:</strong> {{ assignment.rate }} {{ assignment.currency }}
+                    </p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'assignment_detail' assignment.pk %}" class="btn btn-outline-primary">View Details</a>
+                    {% else %}
+                        <p class="text-muted">Sign in to view details</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">No active assignments available.</p>
+        {% endfor %}
+    </div>
+
+    <h2 class="section-title">Previous Assignments</h2>
+    <div class="assignments-grid">
+        {% for assignment in inactive_assignments %}
+            <div class="card assignment-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ assignment.title }}</h5>
+                    <p class="card-text">
+                        <strong>Industry:</strong> {{ assignment.get_industry_display }}<br>
+                        <strong>Duration:</strong> {{ assignment.duration }} days<br>
+                        <strong>Rate:</strong> {{ assignment.rate }} {{ assignment.currency }}
+                    </p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'assignment_detail' assignment.pk %}" class="btn btn-outline-secondary">View Details</a>
+                    {% else %}
+                        <p class="text-muted">Sign in to view details</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">No previous assignments available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
