@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 # config/settings.py
 import os
+import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -25,9 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True' # FOR DEVELOPMENT ONLY 
+DEBUG = 'DEVELOPMENT' in os.environ 
 
-ALLOWED_HOSTS = ['*']  # For development only
+ALLOWED_HOSTS = [
+    'your-app-name.herokuapp.com',
+    'localhost',
+    '127.0.0.1',
+    os.getenv('ALLOWED_HOSTS', ''),
+]  
 
 # Application definition
 INSTALLED_APPS = [
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -104,6 +111,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Static files storage
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
