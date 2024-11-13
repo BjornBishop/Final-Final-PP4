@@ -1,1 +1,1 @@
-web: gunicorn sagacity.config.wsgi
+web: gunicorn sagacity.config.wsgi:application
