@@ -60,3 +60,15 @@ class Assignment(models.Model):
 
     class Meta:
         ordering = ['-created_at'] # This should make sure the newest assignment appears first 
+
+# Contact form goes here
+
+class ContactMessage(models.Model):
+    from_user = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Message from {self.from_user} regarding {self.assignment.title}"
