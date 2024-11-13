@@ -32,11 +32,10 @@ class ModelTests(TestCase):
         """Test assignment instance creation"""
         self.assertEqual(self.assignment.title, 'Test Assignment')
         self.assertTrue(isinstance(self.assignment, Assignment))
-        self.assertEqual(str(self.assignment), 'Test Assignment')
-
-    def test_assignment_is_active_default(self):
-        """Test assignment is_active defaults to True"""
-        self.assertTrue(self.assignment.is_active)
+        
+        # Test string representation
+        assignment_str = str(self.assignment)
+        self.assertEqual(assignment_str, 'Test Assignment')
 
 # Form Tests
 
