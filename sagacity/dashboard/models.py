@@ -66,11 +66,11 @@ class Assignment(models.Model):
 class ContactMessage(models.Model):
     from_user = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    assignment = models.ForeignKey('Assignment', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return f"Message from {self.name} regarding {self.assignment.title}"
