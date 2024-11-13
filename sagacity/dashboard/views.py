@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib import messages
 from .forms import SignUpForm, AssignmentForm, PasswordResetRequestForm
-from .models import Assignment
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from .models import Assignment, ContactMessage
 
 # Create your views here
 
@@ -105,24 +108,27 @@ def contact_assignment_creator(request, assignment_id):
     assignment = get_object_or_404(Assignment, pk=assignment_id)
     
     if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            contact = form.save(commit=False)
-            contact.from_user = request.user
-            contact.to_user = assignment.created_by
-            contact.assignment = assignment
-            contact.save()
+        # Create contact message directly from POST data
+        contact = ContactMessage(
+            from_user=request.user,
+            to_user=assignment.created_by,
+            assignment=assignment,
+            name=request.POST.get('name'),
+            email=request.POST.get('email'),
+            message=request.POST.get('message')
+        )
+        contact.save()
 
-            # Send email notification
-            subject = f'New interest in your assignment: {assignment.title}'
-            html_message = render_to_string('dashboard/email/contact_notification.html', {
-                'from_user': request.user,
-                'name': form.cleaned_data['name'],
-                'email': form.cleaned_data['email'],
-                'assignment': assignment,
-                'message': contact.message,
-            })
-            
+        # Send email notification
+        subject = f'New interest in your assignment: {assignment.title}'
+        html_message = render_to_string('dashboard/email/contact_notification.html', {
+            'name': contact.name,
+            'email': contact.email,
+            'assignment': assignment,
+            'message': contact.message,
+        })
+        
+        try:
             send_mail(
                 subject=subject,
                 message=strip_tags(html_message),
@@ -130,18 +136,19 @@ def contact_assignment_creator(request, assignment_id):
                 from_email=None,
                 recipient_list=[assignment.created_by.email],
             )
-
             messages.success(request, 'Your message has been sent successfully!')
-            return redirect('assignment_detail', pk=assignment_id)
-    else:
-        # Pre-fill the form with user's information
-        initial_data = {
-            'name': f"{request.user.first_name} {request.user.last_name}",
-            'email': request.user.email
-        }
-        form = ContactForm(initial=initial_data)
+        except Exception as e:
+            messages.error(request, 'There was an error sending your message. Please try again.')
+            print(f"Email error: {e}")  # For debugging
 
+        return redirect('assignment_detail', pk=assignment_id)
+
+    # If not POST, redirect back to assignment detail
+    return redirect('assignment_detail', pk=assignment_id)
+
+@login_required
+def assignment_detail(request, pk):
+    assignment = get_object_or_404(Assignment, pk=pk)
     return render(request, 'dashboard/assignment_detail.html', {
-        'form': form,
         'assignment': assignment
     })
