@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     '.herokuapp.com',
     'localhost',
     '127.0.0.1',
+    'sagacity-assignments-9f92628a8616.herokuapp.com',
     os.getenv('ALLOWED_HOSTS', ''),
 ]  
 
