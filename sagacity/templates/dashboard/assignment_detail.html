@@ -62,11 +62,47 @@
 
                     <div class="text-center mt-4">
                         <a href="{% url 'home' %}" class="btn btn-secondary me-2">Back to Dashboard</a>
-                        <a href="mailto:{{ assignment.created_by.email }}?subject=Regarding: {{ assignment.title }}&body=Dear {{ assignment.created_by.first_name }}, %0D%0A%0D%0AI am interested in your assignment '{{ assignment.title }}'. %0D%0A%0D%0ABest regards,%0D%0A{{ user.first_name }} {{ user.last_name }}" 
-                           class="btn btn-primary">Contact Creator</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            Contact Creator
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactModalLabel">Contact regarding: {{ assignment.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'contact_assignment_creator' assignment.id %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -97,3 +97,51 @@ def toggle_assignment(request, pk):
     assignment.is_active = not assignment.is_active
     assignment.save()
     return redirect('my_assignments')
+
+# Contact Creator 
+
+@login_required
+def contact_assignment_creator(request, assignment_id):
+    assignment = get_object_or_404(Assignment, pk=assignment_id)
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.from_user = request.user
+            contact.to_user = assignment.created_by
+            contact.assignment = assignment
+            contact.save()
+
+            # Send email notification
+            subject = f'New interest in your assignment: {assignment.title}'
+            html_message = render_to_string('dashboard/email/contact_notification.html', {
+                'from_user': request.user,
+                'name': form.cleaned_data['name'],
+                'email': form.cleaned_data['email'],
+                'assignment': assignment,
+                'message': contact.message,
+            })
+            
+            send_mail(
+                subject=subject,
+                message=strip_tags(html_message),
+                html_message=html_message,
+                from_email=None,
+                recipient_list=[assignment.created_by.email],
+            )
+
+            messages.success(request, 'Your message has been sent successfully!')
+            return redirect('assignment_detail', pk=assignment_id)
+    else:
+        # Pre-fill the form with user's information
+        initial_data = {
+            'name': f"{request.user.first_name} {request.user.last_name}",
+            'email': request.user.email
+        }
+        form = ContactForm(initial=initial_data)
+
+    return render(request, 'dashboard/assignment_detail.html', {
+        'form': form,
+        'assignment': assignment
+    })
