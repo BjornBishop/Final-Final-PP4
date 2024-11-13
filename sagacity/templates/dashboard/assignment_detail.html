@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title mb-4">{{ assignment.title }}</h2>
-                    
+
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <strong>Industry:</strong>
@@ -44,9 +44,9 @@
                         </div>
                         <div class="col-md-8">
                             {% for requirement in assignment.get_requirements_list %}
-                                <span class="badge bg-secondary me-2 mb-2">{{ requirement }}</span>
+                            <span class="badge bg-secondary me-2 mb-2">{{ requirement }}</span>
                             {% empty %}
-                                <span class="text-muted">No requirements specified</span>
+                            <span class="text-muted">No requirements specified</span>
                             {% endfor %}
                         </div>
                     </div>
@@ -62,7 +62,8 @@
 
                     <div class="text-center mt-4">
                         <a href="{% url 'home' %}" class="btn btn-secondary me-2">Back to Dashboard</a>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#contactModal">
                             Contact Creator
                         </button>
                     </div>
@@ -86,22 +87,21 @@
                     <!-- Name Field -->
                     <div class="mb-3">
                         <label for="id_name" class="form-label">Your Name</label>
-                        <input type="text" name="name" id="id_name" class="form-control" 
-                               value="{{ user.get_full_name }}" required>
+                        <input type="text" name="name" id="id_name" class="form-control"
+                            value="{{ user.get_full_name }}" required>
                     </div>
-                    
+
                     <!-- Email Field -->
                     <div class="mb-3">
                         <label for="id_email" class="form-label">Your Email</label>
-                        <input type="email" name="email" id="id_email" class="form-control" 
-                               value="{{ user.email }}" required>
+                        <input type="email" name="email" id="id_email" class="form-control" value="{{ user.email }}"
+                            required>
                     </div>
-                    
+
                     <!-- Message Field -->
                     <div class="mb-3">
                         <label for="id_message" class="form-label">Your Message</label>
-                        <textarea name="message" id="id_message" class="form-control" 
-                                  rows="4" required></textarea>
+                        <textarea name="message" id="id_message" class="form-control" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

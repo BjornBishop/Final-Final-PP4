@@ -13,44 +13,50 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="id_title" class="form-label">Assignment Title</label>
-                        <input type="text" name="title" class="form-control" id="id_title" 
-                               value="{{ form.title.value|default:'' }}" required>
+                        <input type="text" name="title" class="form-control" id="id_title"
+                            value="{{ form.title.value|default:'' }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="id_industry" class="form-label">Industry</label>
                         <select name="industry" class="form-select" id="id_industry" required>
-                            <option value="FS" {% if form.industry.value == 'FS' %}selected{% endif %}>Financial Services</option>
-                            <option value="COM" {% if form.industry.value == 'COM' %}selected{% endif %}>Commercial</option>
-                            <option value="IND" {% if form.industry.value == 'IND' %}selected{% endif %}>Industrial</option>
+                            <option value="FS" {% if form.industry.value == 'FS' %}selected{% endif %}>Financial
+                                Services</option>
+                            <option value="COM" {% if form.industry.value == 'COM' %}selected{% endif %}>Commercial
+                            </option>
+                            <option value="IND" {% if form.industry.value == 'IND' %}selected{% endif %}>Industrial
+                            </option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="id_duration" class="form-label">Duration (days)</label>
-                        <input type="number" name="duration" class="form-control" id="id_duration" 
-                               value="{{ form.duration.value|default:'' }}" required min="1">
+                        <input type="number" name="duration" class="form-control" id="id_duration"
+                            value="{{ form.duration.value|default:'' }}" required min="1">
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-8">
                             <label for="id_rate" class="form-label">Rate</label>
-                            <input type="number" name="rate" class="form-control" id="id_rate" 
-                                   value="{{ form.rate.value|default:'' }}" required min="0" step="0.01">
+                            <input type="number" name="rate" class="form-control" id="id_rate"
+                                value="{{ form.rate.value|default:'' }}" required min="0" step="0.01">
                         </div>
                         <div class="col-md-4">
                             <label for="id_currency" class="form-label">Currency</label>
                             <select name="currency" class="form-select" id="id_currency" required>
-                                <option value="EUR" {% if form.currency.value == 'EUR' %}selected{% endif %}>EUR</option>
-                                <option value="SEK" {% if form.currency.value == 'SEK' %}selected{% endif %}>SEK</option>
+                                <option value="EUR" {% if form.currency.value == 'EUR' %}selected{% endif %}>EUR
+                                </option>
+                                <option value="SEK" {% if form.currency.value == 'SEK' %}selected{% endif %}>SEK
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="id_requirements" class="form-label">Requirements (separate with /)</label>
-                        <input type="text" name="requirements" class="form-control" id="id_requirements" 
-                               value="{{ form.requirements.value|default:'' }}" required>
+                        <input type="text" name="requirements" class="form-control" id="id_requirements"
+                            value="{{ form.requirements.value|default:'' }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="id_description" class="form-label">Description</label>
-                        <textarea name="description" class="form-control" id="id_description" rows="5" required>{{ form.description.value|default:'' }}</textarea>
+                        <textarea name="description" class="form-control" id="id_description" rows="5"
+                            required>{{ form.description.value|default:'' }}</textarea>
                         <div class="form-text">Do not include contact information in the description.</div>
                     </div>
                     <div class="d-grid gap-2">
