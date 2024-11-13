@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Assignment
+from .models import Assignment, ContactMessage
 import re
 
 # forum models go below here
@@ -34,3 +34,4 @@ class AssignmentForm(forms.ModelForm):
 
 class PasswordResetRequestForm(forms.Form):
     email = forms.EmailField(required=True)
+
