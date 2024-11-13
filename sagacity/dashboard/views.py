@@ -43,6 +43,53 @@ def signup(request):
 
 #assignment details
 
+# Contact Creator 
+
+@login_required
+def contact_assignment_creator(request, assignment_id):
+    assignment = get_object_or_404(Assignment, pk=assignment_id)
+    
+    if request.method == 'POST':
+        # Create contact message directly from POST data
+        contact = ContactMessage(
+            from_user=request.user,
+            to_user=assignment.created_by,
+            assignment=assignment,
+            name=request.POST.get('name'),
+            email=request.POST.get('email'),
+            message=request.POST.get('message')
+        )
+        contact.save()
+
+        # Send email notification
+        subject = f'New interest in your assignment: {assignment.title}'
+        html_message = render_to_string('dashboard/email/contact_notification.html', {
+            'name': contact.name,
+            'email': contact.email,
+            'assignment': assignment,
+            'message': contact.message,
+        })
+        
+        try:
+            send_mail(
+                subject=subject,
+                message=strip_tags(html_message),
+                html_message=html_message,
+                from_email=None,
+                recipient_list=[assignment.created_by.email],
+            )
+            messages.success(request, 'Your message has been sent successfully!')
+        except Exception as e:
+            messages.error(request, 'There was an error sending your message. Please try again.')
+            print(f"Email error: {e}")  # For debugging
+
+        return redirect('assignment_detail', pk=assignment_id)
+
+    # If not POST, redirect back to assignment detail
+    return redirect('assignment_detail', pk=assignment_id)
+
+# assignment Details
+
 @login_required
 def assignment_detail(request, pk):
     assignment = get_object_or_404(Assignment, pk=pk)
@@ -100,55 +147,3 @@ def toggle_assignment(request, pk):
     assignment.is_active = not assignment.is_active
     assignment.save()
     return redirect('my_assignments')
-
-# Contact Creator 
-
-@login_required
-def contact_assignment_creator(request, assignment_id):
-    assignment = get_object_or_404(Assignment, pk=assignment_id)
-    
-    if request.method == 'POST':
-        # Create contact message directly from POST data
-        contact = ContactMessage(
-            from_user=request.user,
-            to_user=assignment.created_by,
-            assignment=assignment,
-            name=request.POST.get('name'),
-            email=request.POST.get('email'),
-            message=request.POST.get('message')
-        )
-        contact.save()
-
-        # Send email notification
-        subject = f'New interest in your assignment: {assignment.title}'
-        html_message = render_to_string('dashboard/email/contact_notification.html', {
-            'name': contact.name,
-            'email': contact.email,
-            'assignment': assignment,
-            'message': contact.message,
-        })
-        
-        try:
-            send_mail(
-                subject=subject,
-                message=strip_tags(html_message),
-                html_message=html_message,
-                from_email=None,
-                recipient_list=[assignment.created_by.email],
-            )
-            messages.success(request, 'Your message has been sent successfully!')
-        except Exception as e:
-            messages.error(request, 'There was an error sending your message. Please try again.')
-            print(f"Email error: {e}")  # For debugging
-
-        return redirect('assignment_detail', pk=assignment_id)
-
-    # If not POST, redirect back to assignment detail
-    return redirect('assignment_detail', pk=assignment_id)
-
-@login_required
-def assignment_detail(request, pk):
-    assignment = get_object_or_404(Assignment, pk=pk)
-    return render(request, 'dashboard/assignment_detail.html', {
-        'assignment': assignment
-    })
