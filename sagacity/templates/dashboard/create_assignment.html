@@ -23,20 +23,37 @@
                             <option value="IND">Industrial</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="id_duration" class="form-label">Duration (days)</label>
-                        <input type="number" name="duration" class="form-control" id="id_duration" required min="1">
-                    </div>
                     <div class="row mb-3">
                         <div class="col-md-8">
+                            <label for="id_duration" class="form-label">Duration</label>
+                            <input type="number" name="duration" class="form-control" id="id_duration" required min="1">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="id_duration_unit" class="form-label">&nbsp;</label>
+                            <select name="duration_unit" class="form-select" id="id_duration_unit">
+                                <option value="D">Days</option>
+                                <option value="M">Months</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
                             <label for="id_rate" class="form-label">Rate</label>
                             <input type="number" name="rate" class="form-control" id="id_rate" required min="0" step="0.01">
                         </div>
-                        <div class="col-md-4">
-                            <label for="id_currency" class="form-label">Currency</label>
-                            <select name="currency" class="form-select" id="id_currency" required>
+                        <div class="col-md-3">
+                            <label for="id_currency" class="form-label">&nbsp;</label>
+                            <select name="currency" class="form-select" id="id_currency">
                                 <option value="EUR">EUR</option>
                                 <option value="SEK">SEK</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="id_rate_period" class="form-label">&nbsp;</label>
+                            <select name="rate_period" class="form-select" id="id_rate_period">
+                                <option value="H">/Hour</option>
+                                <option value="D">/Day</option>
+                                <option value="M">/Month</option>
                             </select>
                         </div>
                     </div>

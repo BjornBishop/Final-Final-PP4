@@ -1,3 +1,4 @@
+<!-- templates/dashboard/assignment_detail.html -->
 {% extends 'dashboard/base.html' %}
 
 {% block title %}{{ assignment.title }} Details{% endblock %}
@@ -24,7 +25,7 @@
                             <strong>Duration:</strong>
                         </div>
                         <div class="col-md-8">
-                            {{ assignment.duration }} days
+                            {{ assignment.get_duration_display }}
                         </div>
                     </div>
 
@@ -33,7 +34,7 @@
                             <strong>Rate:</strong>
                         </div>
                         <div class="col-md-8">
-                            {{ assignment.rate }} {{ assignment.currency }}
+                            {{ assignment.get_rate_display }}
                         </div>
                     </div>
 
@@ -42,8 +43,10 @@
                             <strong>Requirements:</strong>
                         </div>
                         <div class="col-md-8">
-                            {% for requirement in assignment.requirements.split|join:"/" %}
-                                <span class="badge bg-secondary me-2">{{ requirement }}</span>
+                            {% for requirement in assignment.get_requirements_list %}
+                                <span class="badge bg-secondary me-2 mb-2">{{ requirement }}</span>
+                            {% empty %}
+                                <span class="text-muted">No requirements specified</span>
                             {% endfor %}
                         </div>
                     </div>
@@ -58,7 +61,9 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Dashboard</a>
+                        <a href="{% url 'home' %}" class="btn btn-secondary me-2">Back to Dashboard</a>
+                        <a href="mailto:{{ assignment.created_by.email }}?subject=Regarding: {{ assignment.title }}&body=Dear {{ assignment.created_by.first_name }}, %0D%0A%0D%0AI am interested in your assignment '{{ assignment.title }}'. %0D%0A%0D%0ABest regards,%0D%0A{{ user.first_name }} {{ user.last_name }}" 
+                           class="btn btn-primary">Contact Creator</a>
                     </div>
                 </div>
             </div>
