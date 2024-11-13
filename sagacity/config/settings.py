@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEVELOPMENT' in os.environ 
 
 ALLOWED_HOSTS = [
-    'your-app-name.herokuapp.com',
+    '.herokuapp.com',
     'localhost',
     '127.0.0.1',
     os.getenv('ALLOWED_HOSTS', ''),
