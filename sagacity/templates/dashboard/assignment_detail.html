@@ -80,23 +80,29 @@
                 <h5 class="modal-title" id="contactModalLabel">Contact regarding: {{ assignment.title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="{% url 'contact_assignment_creator' assignment.id %}">
+            <form method="post" action="{% url 'contact_assignment_creator' assignment.pk %}">
                 {% csrf_token %}
                 <div class="modal-body">
-                    {% for field in form %}
-                        <div class="mb-3">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {% if field.help_text %}
-                                <small class="form-text text-muted">{{ field.help_text }}</small>
-                            {% endif %}
-                            {% if field.errors %}
-                                <div class="alert alert-danger">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                    <!-- Name Field -->
+                    <div class="mb-3">
+                        <label for="id_name" class="form-label">Your Name</label>
+                        <input type="text" name="name" id="id_name" class="form-control" 
+                               value="{{ user.get_full_name }}" required>
+                    </div>
+                    
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Your Email</label>
+                        <input type="email" name="email" id="id_email" class="form-control" 
+                               value="{{ user.email }}" required>
+                    </div>
+                    
+                    <!-- Message Field -->
+                    <div class="mb-3">
+                        <label for="id_message" class="form-label">Your Message</label>
+                        <textarea name="message" id="id_message" class="form-control" 
+                                  rows="4" required></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
