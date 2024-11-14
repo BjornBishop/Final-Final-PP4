@@ -85,11 +85,11 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'registration',
-        'USER': 'bjorn',
-        'PASSWORD': 'YouShallPass',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'sagacity'),
+        'USER': os.getenv('DB_USER', 'myapp_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'your_password'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -122,7 +122,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'sagacity', 'static')]  # updated this pathway
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # updated this pathway
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Static files storage
