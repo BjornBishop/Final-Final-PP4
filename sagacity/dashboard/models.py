@@ -5,9 +5,6 @@ from django.contrib.auth.models import User
 # Models go below here
 
 class Assignment(models.Model):
-    class Meta:
-        app_label = 'sagacity_dashboard'
-
     INDUSTRY_CHOICES = [
         ('FS', 'Financial Services'),
         ('COM', 'Commercial'),
@@ -62,6 +59,7 @@ class Assignment(models.Model):
         return f"{self.rate} {self.currency}{self.get_rate_period_display()}"
 
     class Meta:
+        app_label = 'sagacity_dashboard'
         ordering = ['-created_at'] # This should make sure the newest assignment appears first 
 
 # Contact form goes here
