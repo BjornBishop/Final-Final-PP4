@@ -7,8 +7,9 @@ import sys
 def main():
     """Run administrative tasks."""
     current_path = os.path.dirname(os.path.abspath(__file__))
-    sys.path.append(current_path)  # Added this line
-    
+    sys.path.append(current_path)  # Added the root directory
+    sys.path.append(os.path.join(current_path, 'sagacity'))  # Added the sagacity directory
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sagacity.config.settings')
     try:
         from django.core.management import execute_from_command_line
