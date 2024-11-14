@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from sagacity.dashboard.models import Assignment, ContactMessage
 
 # Models go below here
 
