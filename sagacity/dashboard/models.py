@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Assignment(models.Model):
     class Meta:
         app_label = 'dashboard'
-        
+
     INDUSTRY_CHOICES = [
         ('FS', 'Financial Services'),
         ('COM', 'Commercial'),
@@ -67,6 +67,8 @@ class Assignment(models.Model):
 # Contact form goes here
 
 class ContactMessage(models.Model):
+    class Meta:
+        app_label = 'dashboard'
     from_user = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
     assignment = models.ForeignKey('Assignment', on_delete=models.CASCADE)
