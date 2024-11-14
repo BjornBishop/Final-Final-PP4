@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 # Models go below here
 
 class Assignment(models.Model):
+    class Meta:
+        app_label = 'dashboard'
+        
     INDUSTRY_CHOICES = [
         ('FS', 'Financial Services'),
         ('COM', 'Commercial'),
