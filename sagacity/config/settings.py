@@ -59,12 +59,12 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'sagacity.config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'sagacity', 'templates')],  # updated this path
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'sagacity.config.wsgi.application'
 
 # Database
 
@@ -116,7 +116,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'sagacity', 'static')]  # updated this pathway
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Static files storage
