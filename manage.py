@@ -6,9 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    # Added the parent directory to Python path
     current_path = os.path.dirname(os.path.abspath(__file__))
-    sys.path.append(os.path.join(current_path, 'sagacity'))  # Added this line
+    sys.path.append(current_path)  # Added this line
     
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sagacity.config.settings')
     try:
