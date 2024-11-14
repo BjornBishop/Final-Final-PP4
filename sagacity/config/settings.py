@@ -85,9 +85,9 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'your_database_name',
+        'NAME': 'registration',
         'USER': 'user',
-        'PASSWORD': 'your_password',
+        'PASSWORD': 'YouShallPass',
         'HOST': 'localhost',
         'PORT': '5432',
     }
