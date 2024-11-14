@@ -30,7 +30,7 @@ DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 DEBUG = DEVELOPMENT
 
 ALLOWED_HOSTS = [
-    '.herokuapp.com', 'sagacity-assignments-9f92628a8616.herokuapp.com', 'localhost', os.getenv('ALLOWED_HOSTS', ''),
+    '.herokuapp.com', 'sagacity-assignments-9f92628a8616.herokuapp.com', '8000-bjornbishop-finalfinalp-ed14csnlwjb.ws-eu116.gitpod.io', 'localhost', os.getenv('ALLOWED_HOSTS', ''),
 ]  
 
 # Application definition
