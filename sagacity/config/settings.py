@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4', # added app
-    'sagacity.dashboard', # added sagacity.dashboard
+    'bootstrap4', 
+    'dashboard',  # Change to just 'dashboard'
 ]
 
 MIDDLEWARE = [
