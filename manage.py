@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    # Add the parent directory to Python path
+    # Added the parent directory to Python path
     current_path = os.path.dirname(os.path.abspath(__file__))
     sys.path.append(os.path.join(current_path, 'sagacity'))  # Added this line
     
