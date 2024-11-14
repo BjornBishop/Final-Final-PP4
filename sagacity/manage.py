@@ -7,7 +7,7 @@ import sys
 def main():
     """Run administrative tasks."""
     current_path = os.path.dirname(os.path.abspath(__file__))
-    sys.path.append(current_path)  # Added the root directory
+    sys.path.append('/workspace/Final-Final-PP4/sagacity')
     sys.path.append(os.path.join(current_path, 'sagacity'))  # Added the sagacity directory
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sagacity.config.settings')
