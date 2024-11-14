@@ -2,15 +2,15 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from sagacity.config.settings import *
 
 def main():
     """Run administrative tasks."""
-    current_path = os.path.dirname(os.path.abspath(__file__))
-    sys.path.append('/workspace/Final-Final-PP4/sagacity')
-    sys.path.append(os.path.join(current_path, 'sagacity'))  # Added the sagacity directory
-
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sagacity.config.settings')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
