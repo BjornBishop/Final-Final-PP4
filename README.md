@@ -108,6 +108,7 @@ To run this project locally:
 6. Start development server
 
 ## Credits
+Credit to my whole family for sticking with me. 
 
 ### Content
 - Assignment structure inspired throughout my work as a consultant broker. We have a "RedZone" board for tracking assignment processes (cant show screenshots due to NDA) but this was heavily inspired by that. 
@@ -115,10 +116,12 @@ To run this project locally:
 - Some Fonts from Google Fonts as well. 
 
 ### Media
-
+No media within
 
 ### Acknowledgements
 Id like to thank the mentor for his last minute guidance and taking time beyond our scheduled time to help with my train of thought. 
 I wish you best of luck on the travels if we dont cross paths again soon. 
 A lot of credit also to CI for the development frameworks. 
 Additional credit to the AI masters. Ive learnt more from you than anything else. 
+## Claude AI 
+## CoPilot 
