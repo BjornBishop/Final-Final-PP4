@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4', 
-    'sagacity.dashboard',  # Change to just 'dashboard'
+    'sagacity.dashboard.apps.DashboardConfig',  # no clue which is the right pathway
 ]
 
 MIDDLEWARE = [
